@@ -1,0 +1,260 @@
+<html><head><base href="." /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Daily Calorie Needs Calculator</title><style>
+:root {
+  --primary: #2C3E50;
+  --secondary: #E74C3C;
+  --accent: #F1C40F;
+  --light: #ECF0F1;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+}
+
+.logo svg {
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  background: var(--primary);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.header-btn {
+  background: var(--accent);
+  color: var(--primary);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.header-btn:hover {
+  background: #d4ac0d;
+  transform: translateY(-2px);
+}
+
+body {
+  font-family: 'Hind Siliguri', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: var(--light);
+  color: var(--primary);
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1, h2 {
+  color: var(--secondary);
+  text-align: center;
+}
+
+.calculator-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+label {
+  font-weight: bold;
+  color: var(--primary);
+}
+
+input, select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+button {
+  background: var(--secondary);
+  color: white;
+  border: none;
+  padding: 15px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #c0392b;
+}
+
+.results {
+  margin-top: 20px;
+  padding: 20px;
+  background: var(--light);
+  border-radius: 5px;
+  text-align: center;
+  display: none;
+}
+
+.calorie-info {
+  margin-top: 30px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 5px;
+}
+
+.calorie-info h3 {
+  color: var(--secondary);
+}
+
+.footer {
+  background: var(--primary);
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+</style></head><body>
+
+<header class="header">
+  <div class="logo">
+    <svg viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="45" fill="#2C3E50"/>
+      <path d="M30,50 Q50,25 70,50 T30,50" fill="none" stroke="#F1C40F" stroke-width="8"/>
+      <circle cx="50" cy="50" r="10" fill="#E74C3C"/>
+    </svg>
+  </div>
+  <div class="header-buttons">
+    <a href="calories.html" class="header-btn">দৈনিক ক্যালরি ক্যালকুলেটর</a>
+    <a href="exercise.html" class="header-btn">ওজন বাড়ানোর ব্যায়াম</a>
+  </div>
+</header>
+
+<div class="container">
+  <h1>দৈনিক ক্যালরির প্রয়োজন ক্যালকুলেটর</h1>
+  
+  <div class="calculator-form">
+    <div class="form-group">
+      <label for="gender">লিঙ্গ:</label>
+      <select id="gender">
+        <option value="male">পুরুষ</option>
+        <option value="female">মহিলা</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="age">বয়স (বছর):</label>
+      <input type="number" id="age" min="15" max="80" required>
+    </div>
+
+    <div class="form-group">
+      <label for="weight">ওজন (কেজি):</label>
+      <input type="number" id="weight" min="30" max="200" required>
+    </div>
+
+    <div class="form-group">
+      <label for="height">উচ্চতা (সেন্টিমিটার):</label>
+      <input type="number" id="height" min="120" max="220" required>
+    </div>
+
+    <div class="form-group">
+      <label for="activity">দৈনিক কার্যকলাপের ধরন:</label>
+      <select id="activity">
+        <option value="1.2">অল্প চলাচল (বেশিরভাগ সময় বসে থাকা)</option>
+        <option value="1.375">হালকা সক্রিয় (সপ্তাহে ১-৩ দিন ব্যায়াম)</option>
+        <option value="1.55">মধ্যম সক্রিয় (সপ্তাহে ৩-৫ দিন ব্যায়াম)</option>
+        <option value="1.725">খুব সক্রিয় (সপ্তাহে ৬-৭ দিন ব্যায়াম)</option>
+        <option value="1.9">অত্যন্ত সক্রিয় (প্রতিদিন কঠিন ব্যায়াম/শারীরিক শ্রম)</option>
+      </select>
+    </div>
+
+    <button onclick="calculateCalories()">ক্যালরি গণনা করুন</button>
+  </div>
+
+  <div id="results" class="results">
+    <h2>আপনার দৈনিক ক্যালরির প্রয়োজন:</h2>
+    <h3 id="bmr"></h3>
+    <h3 id="tdee"></h3>
+  </div>
+
+  <div class="calorie-info">
+    <h3>ক্যালরি সম্পর্কিত তথ্য:</h3>
+    <ul>
+      <li>ওজন বাড়াতে: দৈনিক প্রয়োজনের চেয়ে ৩০০-৫০০ ক্যালরি বেশি খান</li>
+      <li>ওজন কমাতে: দৈনিক প্রয়োজনের চেয়ে ৫০০-৭০০ ক্যালরি কম খান</li>
+      <li>ওজন ধরে রাখতে: প্রয়োজন অনুযায়ী ক্যালরি গ্রহণ করুন</li>
+    </ul>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>© ২০২৩ দৈনিক ক্যালরি ক্যালকুলেটর</p>
+  <p>সুস্থ থাকুন, সুষম খাবার খান</p>
+</footer>
+
+<script>
+function calculateCalories() {
+  const gender = document.getElementById('gender').value;
+  const age = parseFloat(document.getElementById('age').value);
+  const weight = parseFloat(document.getElementById('weight').value);
+  const height = parseFloat(document.getElementById('height').value);
+  const activity = parseFloat(document.getElementById('activity').value);
+
+  if (!age || !weight || !height) {
+    alert('সব তথ্য পূরণ করুন');
+    return;
+  }
+
+  // Calculate BMR using Mifflin-St Jeor Equation
+  let bmr;
+  if (gender === 'male') {
+    bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+  } else {
+    bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+  }
+
+  // Calculate TDEE (Total Daily Energy Expenditure)
+  const tdee = Math.round(bmr * activity);
+
+  // Display results
+  const results = document.getElementById('results');
+  results.style.display = 'block';
+  results.className = 'results fade-in';
+  
+  document.getElementById('bmr').textContent = `বেসাল মেটাবোলিক রেট (BMR): ${Math.round(bmr)} ক্যালরি`;
+  document.getElementById('tdee').textContent = `মোট দৈনিক ক্যালরির প্রয়োজন: ${tdee} ক্যালরি`;
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
+</body></html>

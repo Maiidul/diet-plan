@@ -1,0 +1,282 @@
+<html><head><base href="." /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Weight Gain Exercise Guide</title><style>
+:root {
+  --primary: #2C3E50;
+  --secondary: #E74C3C;
+  --accent: #F1C40F;
+  --light: #ECF0F1;
+}
+
+.header {
+  background: var(--primary);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  text-decoration: none;
+}
+
+.logo svg {
+  width: 40px;
+  height: 40px;
+  fill: var(--accent);
+}
+
+.logo-text {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+.header-buttons {
+  display: flex;
+  gap: 20px;
+  margin-left: auto;  
+}
+
+.header-btn {
+  background: var(--accent);
+  color: var(--primary);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.header-btn:hover {
+  background: #d4ac0d;
+  transform: translateY(-2px);
+}
+
+body {
+  font-family: 'Hind Siliguri', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: var(--light);
+  color: var(--primary);
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1, h2 {
+  color: var(--secondary);
+  text-align: center;
+}
+
+.exercise-section {
+  margin: 30px 0;
+  padding: 20px;
+  background: var(--light);
+  border-radius: 10px;
+}
+
+.exercise-card {
+  background: white;
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+  display: flex;
+  gap: 20px;
+}
+
+.exercise-card:hover {
+  transform: translateY(-5px);
+}
+
+.exercise-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.exercise-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.exercise-content {
+  flex: 1;
+}
+
+.exercise-card h3 {
+  color: var(--secondary);
+  margin-top: 0;
+}
+
+.sets-reps {
+  color: var(--primary);
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.tips {
+  margin-top: 20px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 5px;
+}
+
+.tips li {
+  margin: 10px 0;
+}
+
+.footer {
+  background: var(--primary);
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.upload-btn {
+  display: none; 
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+</style></head><body>
+
+<header class="header">
+  <a href="/" class="logo">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20.24 12.99c1.31-1.57 2.05-3.47 2.05-5.49 0-4.14-3.36-7.5-7.5-7.5S7.29 3.36 7.29 7.5c0 2.02.74 3.92 2.05 5.49-2.99-.7-5.24-3.37-5.24-6.49C4.1 2.9 7 0 10.6 0s6.5 2.9 6.5 6.5c0 3.12-2.25 5.79-5.24 6.49zM17.5 10c-1.93 0-3.5-1.57-3.5-3.5S15.57 3 17.5 3 21 4.57 21 6.5 19.43 10 17.5 10zm-11 14c-1.93 0-3.5-1.57-3.5-3.5S4.57 17 6.5 17s3.5 1.57 3.5 3.5S8.43 24 6.5 24zm11 0c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/>
+    </svg>
+    <span class="logo-text">ক্যালরি ক্যালকুলেটর</span>
+  </a>
+  <div class="header-buttons">
+    <a href="calories.html" class="header-btn">দৈনিক ক্যালরি ক্যালকুলেটর</a>
+    <a href="exercise.html" class="header-btn">ওজন বাড়ানোর ব্যায়াম</a>
+  </div>
+</header>
+
+<div class="container">
+  <h1>ওজন বাড়ানোর জন্য ব্যায়াম গাইড</h1>
+  
+  <div class="exercise-section">
+    <h2>পুশ ব্যায়াম (আপার বডি)</h2>
+    
+    <div class="exercise-card">
+      <div class="exercise-image">
+        <img src="https://media.giphy.com/media/5t9IcXiBCyw60XPpGu/giphy.gif" alt="Push-up exercise">
+      </div>
+      <div class="exercise-content">
+        <h3>পুশ-আপ</h3>
+        <p class="sets-reps">সেট: ৩-৪ | রেপ: ১২-১৫</p>
+        <p>বুক, কাঁধ এবং ট্রাইসেপস শক্তিশালী করার জন্য উত্তম ব্যায়াম</p>
+      </div>
+    </div>
+    
+    <div class="exercise-card">
+      <div class="exercise-image">
+        <img src="https://media.giphy.com/media/7YCC7PTNX2TOhJQ6aW/giphy.gif" alt="Bench press exercise">
+      </div>
+      <div class="exercise-content">
+        <h3>ডামবেল বেঞ্চ প্রেস</h3>
+        <p class="sets-reps">সেট: ৩-৪ | রেপ: ১০-১২</p>
+        <p>বুক এবং ট্রাইসেপস বৃদ্ধির জন্য কার্যকর ব্যায়াম</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="exercise-section">
+    <h2>টান ব্যায়াম (ব্যাক)</h2>
+    
+    <div class="exercise-card">
+      <div class="exercise-image">
+        <img src="https://media.giphy.com/media/XfYvjf7YhKeMw/giphy.gif" alt="Pull-up exercise">
+      </div>
+      <div class="exercise-content">
+        <h3>পুল-আপ/চিন-আপ</h3>
+        <p class="sets-reps">সেট: ৩-৪ | রেপ: যতটা পারেন</p>
+        <p>পিঠের পেশী এবং বাইসেপস শক্তিশালী করার জন্য দারুণ ব্যায়াম</p>
+      </div>
+    </div>
+    
+    <div class="exercise-card">
+      <div class="exercise-image">
+        <img src="https://media.giphy.com/media/3o7TKPATxjC1zfQyXu/giphy.gif" alt="Dumbbell row exercise">
+      </div>
+      <div class="exercise-content">
+        <h3>ডামবেল রো</h3>
+        <p class="sets-reps">সেট: ৩-৪ | রেপ: ১২-১৫</p>
+        <p>পিঠের উপরের অংশ এবং বাইসেপস বৃদ্ধির জন্য কার্যকর</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="exercise-section">
+    <h2>পা ব্যায়াম</h2>
+    
+    <div class="exercise-card">
+      <div class="exercise-image">
+        <img src="https://media.giphy.com/media/5EJHDSPpFhbG0/giphy.gif" alt="Squat exercise">
+      </div>
+      <div class="exercise-content">
+        <h3>স্কোয়াট</h3>
+        <p class="sets-reps">সেট: ৩-৪ | রেপ: ১২-১৫</p>
+        <p>পায়ের পেশী বৃদ্ধির জন্য মৌলিক ব্যায়াম</p>
+      </div>
+    </div>
+    
+    <div class="exercise-card">
+      <div class="exercise-image">
+        <img src="https://media.giphy.com/media/l3q2Q3sUEkEyDvfPO/giphy.gif" alt="Lunge exercise">
+      </div>
+      <div class="exercise-content">
+        <h3>লানজেস</h3>
+        <p class="sets-reps">সেট: ৩ | রেপ: ১০-১২ (প্রতি পা)</p>
+        <p>পায়ের শক্তি ও ভারসাম্য উন্নয়নের জন্য উপযোগী</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tips">
+    <h3>গুরুত্বপূর্ণ টিপস:</h3>
+    <ul>
+      <li>প্রতিদিন পর্যাপ্ত প্রোটিন গ্রহণ করুন (১.৬-২.২ গ্রাম/কেজি শরীরের ওজন)</li>
+      <li>সপ্তাহে ৩-৪ দিন ব্যায়াম করুন</li>
+      <li>প্রতি ব্যায়ামের মধ্যে ১-২ মিনিট বিশ্রাম নিন</li>
+      <li>ধীরে ধীরে ওজন বাড়ান</li>
+      <li>রাতে পর্যাপ্ত ঘুমান (৭-৮ ঘণ্টা)</li>
+    </ul>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>২০২৩ দৈনক ক্যালরি ক্যালকুলেটর</p>
+  <p>সুস্থ থাকুন, সুষম খাবার খান</p>
+</footer>
+
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
+
+</body></html>
