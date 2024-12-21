@@ -1,0 +1,419 @@
+<html><head><base href="." /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Bangladeshi Food Calorie Calculator</title><style>
+:root {
+  --primary: #2C3E50;
+  --secondary: #E74C3C;
+  --accent: #F1C40F;
+  --light: #ECF0F1;
+}
+
+body {
+  font-family: 'Hind Siliguri', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: var(--light);
+  color: var(--primary);
+}
+
+.header {
+  background: var(--primary);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  text-decoration: none;
+}
+
+.logo svg {
+  width: 40px;
+  height: 40px;
+  fill: var(--accent);
+}
+
+.logo-text {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
+}
+
+.header button {
+  background: var(--accent);
+  color: var(--primary);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.3s;
+}
+
+.header button:hover {
+  transform: scale(1.05);
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1, h2 {
+  color: var(--secondary);
+  text-align: center;
+}
+
+h1 { font-size: 2.5em; }
+
+.meal-section {
+  margin: 20px 0;
+}
+
+.food-item {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+select, input {
+  padding: 8px;
+  margin: 0 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.unit-label {
+  color: var(--primary);
+  min-width: 60px;
+}
+
+button {
+  background: var(--secondary);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #c0392b;
+}
+
+.results {
+  margin-top: 20px;
+  padding: 20px;
+  background: var(--light);
+  border-radius: 5px;
+}
+
+.total-calories {
+  font-size: 1.5em;
+  color: var(--secondary);
+  text-align: center;
+}
+
+.category-select {
+  margin-right: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 90%;
+}
+
+.footer {
+  background: var(--primary);
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.food-item {
+  animation: fadeIn 0.5s ease-out;
+}
+</style></head><body>
+<div class="header">
+  <a href="https://maiidul.github.io/diet-plan/" class="logo">
+    <svg viewBox="0 0 24 24">
+      <path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/>
+    </svg>
+    <span class="logo-text">ক্যালরি ক্যালকুলেটর</span>
+  </a>
+  <div>
+    <button onclick="showCalorieNeeds()"><a href="page2.html">ক্যালরির প্রয়োজন</a></button>
+    <button onclick="showWeightGainInfo()"><a href="exercise.html">বাড়ানোর ব্যায়াম</a></button>
+  </div>
+</div>
+
+<div class="container">
+  <h1>বাংলাদেশী খাবারের ক্যালরি ক্যালকুলেটর</h1>
+  
+  <div class="meal-section">
+    <h2>সকালের নাস্তা</h2>
+    <div id="breakfast-items"></div>
+    <button onclick="addFoodItem('breakfast-items')">+ আরও খাবার যোগ করুন</button>
+  </div>
+
+  <div class="meal-section">
+    <h2>দুপুরের খাবার</h2>
+    <div id="lunch-items"></div>
+    <button onclick="addFoodItem('lunch-items')">+ আরও খাবার যোগ করুন</button>
+  </div>
+
+  <div class="meal-section">
+    <h2>রাতের খাবার</h2>
+    <div id="dinner-items"></div>
+    <button onclick="addFoodItem('dinner-items')">+ আরও খাবার যোগ করুন</button>
+  </div>
+
+  <button onclick="calculateTotalNutrition()" style="display: block; margin: 20px auto;">পুষ্টিমান গণনা করুন</button>
+
+  <div class="results">
+    <div class="total-calories">মোট ক্যালরি: <span id="total-calories">0</span></div>
+    <div class="nutrition-info" style="margin-top: 20px;">
+      <h3>পুষ্টিমান বিশ্লেষণ:</h3>
+      <p>প্রোটিন: <span id="total-protein">0</span> গ্রাম</p>
+      <p>কার্বোহাইড্রেট: <span id="total-carbs">0</span> গ্রাম</p>
+      <p>ফ্যাট: <span id="total-fat">0</span> গ্রাম</p>
+      <p>ফাইবার: <span id="total-fiber">0</span> গ্রাম</p>
+    </div>
+  </div>
+</div>
+
+<div id="calorieNeedsModal" class="modal">
+  <div class="modal-content">
+    <h2>দৈনিক ক্যালরির প্রয়োজন</h2>
+    <p>আপনার দৈনিক ক্যালরির প্রয়োজন নির্ভর করে:</p>
+    <ul>
+      <li>পুরুষ (সাধারণ কাজ): ২০০০-২৫০০ ক্যালরি</li>
+      <li>মহিলা (সাধারণ কাজ): ১৮০০-২২০০ ক্যালরি</li>
+      <li>শারীরিক পরিশ্রমী: ২৫০০-৩০০০ ক্যালরি</li>
+    </ul>
+    <button onclick="closeModal('calorieNeedsModal')">বন্ধ করুন</button>
+  </div>
+</div>
+
+<div id="weightGainModal" class="modal">
+  <div class="modal-content">
+    <h2>ওজন বাড়ানোর ব্যায়াম</h2>
+    <ul>
+      <li>পুশ-আপ: ৩ সেট × ১০ বার</li>
+      <li>স্কোয়াট: ৩ সেট × ১৫ বার</li>
+      <li>প্ল্যাংক: ৩০ সেকেন্ড × ৩ বার</li>
+      <li>পুল-আপ: ৩ সেট × ৫ বার</li>
+    </ul>
+    <p>নিয়মিত ব্যায়ামের সাথে পর্যাপ্ত প্রোটিন ও ক্যালরি গ্রহণ করুন</p>
+    <button onclick="closeModal('weightGainModal')">বন্ধ করুন</button>
+  </div>
+</div>
+
+<footer class="footer">
+  <p> ২০২৩ বাংলাদেশী খাবারের ক্যালরি ক্যালকুলেটর</p>
+  <p>স্বাস্থ্যকর জীবনযাপনের জন্য পুষ্টিকর খাবার খান</p>
+</footer>
+
+<script>
+const foodCategories = {
+  'মূল খাবার': {
+    'ভাত': {calories: 130, protein: 2.7, carbs: 28, fat: 0.3, fiber: 0.4, unit: 'কাপ'},
+    'রুটি': {calories: 80, protein: 3, carbs: 15, fat: 1, fiber: 1.2, unit: 'পিস'},
+    'পরোটা': {calories: 150, protein: 4, carbs: 20, fat: 7, fiber: 1, unit: 'পিস'},
+    'খিচুড়ি': {calories: 180, protein: 6, carbs: 30, fat: 5, fiber: 2, unit: 'কাপ'}
+  },
+  'তরকারি': {
+    'আলু': {calories: 0.77, protein: 0.02, carbs: 0.17, fat: 0.001, fiber: 0.02, unit: 'গ্রাম'},
+    'পালং শাক': {calories: 0.23, protein: 0.03, carbs: 0.04, fat: 0.003, fiber: 0.02, unit: 'গ্রাম'},
+    'বাঁধাকপি': {calories: 0.25, protein: 0.02, carbs: 0.05, fat: 0.001, fiber: 0.02, unit: 'গ্রাম'},
+    'করলা': {calories: 0.17, protein: 0.01, carbs: 0.04, fat: 0.001, fiber: 0.02, unit: 'গ্রাম'},
+    'লাউ': {calories: 0.14, protein: 0.01, carbs: 0.03, fat: 0.001, fiber: 0.01, unit: 'গ্রাম'},
+    'পটল': {calories: 0.19, protein: 0.02, carbs: 0.04, fat: 0.001, fiber: 0.02, unit: 'গ্রাম'}
+  },
+  'ফল': {
+    'কলা': {calories: 105, protein: 1.3, carbs: 27, fat: 0.3, fiber: 3.1, unit: 'পিস'},
+    'আম': {calories: 150, protein: 1.1, carbs: 38, fat: 0.6, fiber: 3.7, unit: 'পিস'},
+    'আপেল': {calories: 95, protein: 0.5, carbs: 25, fat: 0.3, fiber: 4.4, unit: 'পিস'},
+    'কমলা': {calories: 62, protein: 1.2, carbs: 15, fat: 0.2, fiber: 3.1, unit: 'পিস'},
+    'পেয়ারা': {calories: 68, protein: 2.6, carbs: 14, fat: 0.9, fiber: 5.4, unit: 'পিস'}
+  },
+  'প্রোটিন': {
+    'মুরগির মাংস': {calories: 1.65, protein: 0.31, carbs: 0, fat: 0.036, fiber: 0, unit: 'গ্রাম'},
+    'গরুর মাংস': {calories: 2.50, protein: 0.26, carbs: 0, fat: 0.15, fiber: 0, unit: 'গ্রাম'},
+    'মাছ': {calories: 2.06, protein: 0.22, carbs: 0, fat: 0.12, fiber: 0, unit: 'গ্রাম'},
+    'ডিম': {calories: 90, protein: 6.3, carbs: 0.6, fat: 5, fiber: 0, unit: 'পিস'},
+    'ডাল': {calories: 100, protein: 7.5, carbs: 20, fat: 0.4, fiber: 7.9, unit: 'কাপ'}
+  }
+};
+
+function showCalorieNeeds() {
+  document.getElementById('calorieNeedsModal').style.display = 'flex';
+}
+
+function showWeightGainInfo() {
+  document.getElementById('weightGainModal').style.display = 'flex';
+}
+
+function closeModal(modalId) {
+  document.getElementById(modalId).style.display = 'none';
+}
+
+function createCategorySelect() {
+  const select = document.createElement('select');
+  select.className = 'category-select';
+  select.innerHTML = Object.keys(foodCategories).map(category => 
+    `<option value="${category}">${category}</option>`
+  ).join('');
+  return select;
+}
+
+function createFoodSelect(category) {
+  const select = document.createElement('select');
+  select.className = 'food-select';
+  select.innerHTML = Object.keys(foodCategories[category]).map(food => 
+    `<option value="${food}">${food}</option>`
+  ).join('');
+  return select;
+}
+
+function updateFoodSelect(categorySelect, foodSelect) {
+  const category = categorySelect.value;
+  foodSelect.innerHTML = Object.keys(foodCategories[category]).map(food => 
+    `<option value="${food}">${food}</option>`
+  ).join('');
+  
+  const unitLabel = foodSelect.parentElement.querySelector('.unit-label');
+  unitLabel.textContent = foodCategories[category][foodSelect.value].unit;
+}
+
+function addFoodItem(containerId) {
+  const container = document.getElementById(containerId);
+  const foodItem = document.createElement('div');
+  foodItem.className = 'food-item';
+  
+  const categorySelect = createCategorySelect();
+  const foodSelect = createFoodSelect(categorySelect.value);
+  
+  categorySelect.addEventListener('change', () => updateFoodSelect(categorySelect, foodSelect));
+  
+  const quantity = document.createElement('input');
+  quantity.type = 'number';
+  quantity.min = '0';
+  quantity.value = '1';
+  quantity.placeholder = 'পরিমাণ';
+  
+  const unitLabel = document.createElement('span');
+  unitLabel.className = 'unit-label';
+  unitLabel.textContent = foodCategories[categorySelect.value][foodSelect.value].unit;
+  
+  const removeBtn = document.createElement('button');
+  removeBtn.innerHTML = 'বাদ দিন';
+  removeBtn.onclick = () => container.removeChild(foodItem);
+  
+  foodSelect.addEventListener('change', () => {
+    unitLabel.textContent = foodCategories[categorySelect.value][foodSelect.value].unit;
+  });
+  
+  foodItem.appendChild(categorySelect);
+  foodItem.appendChild(foodSelect);
+  foodItem.appendChild(quantity);
+  foodItem.appendChild(unitLabel);
+  foodItem.appendChild(removeBtn);
+  container.appendChild(foodItem);
+}
+
+function calculateTotalNutrition() {
+  let totals = {
+    calories: 0,
+    protein: 0,
+    carbs: 0,
+    fat: 0,
+    fiber: 0
+  };
+  
+  ['breakfast-items', 'lunch-items', 'dinner-items'].forEach(mealId => {
+    const mealContainer = document.getElementById(mealId);
+    const foodItems = mealContainer.getElementsByClassName('food-item');
+    
+    Array.from(foodItems).forEach(item => {
+      const category = item.querySelector('.category-select').value;
+      const food = item.querySelector('.food-select').value;
+      const quantity = parseFloat(item.querySelector('input').value) || 0;
+      const foodData = foodCategories[category][food];
+      
+      totals.calories += foodData.calories * quantity;
+      totals.protein += foodData.protein * quantity;
+      totals.carbs += foodData.carbs * quantity;
+      totals.fat += foodData.fat * quantity;
+      totals.fiber += foodData.fiber * quantity;
+    });
+  });
+  
+  document.getElementById('total-calories').textContent = Math.round(totals.calories);
+  document.getElementById('total-protein').textContent = Math.round(totals.protein * 10) / 10;
+  document.getElementById('total-carbs').textContent = Math.round(totals.carbs * 10) / 10;
+  document.getElementById('total-fat').textContent = Math.round(totals.fat * 10) / 10;
+  document.getElementById('total-fiber').textContent = Math.round(totals.fiber * 10) / 10;
+  
+  const results = document.querySelector('.results');
+  results.style.animation = 'none';
+  results.offsetHeight;
+  results.style.animation = 'fadeIn 0.5s ease-out';
+}
+
+// Initialize the page
+addFoodItem('breakfast-items');
+addFoodItem('lunch-items');
+addFoodItem('dinner-items');
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+  if (event.target.className === 'modal') {
+    event.target.style.display = 'none';
+  }
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
+</body></html>
